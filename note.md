@@ -34,3 +34,15 @@ plain js object.
 SPecify how the app's state changes in response to action sent to the store. 
 function that accepts state and action as argument, and return the next state of app. 
 > (previouseState, action) => newState
+
+
+
+### Redux Store
+One store for the entire application
+Responsibilities ->
+- Holds application state
+- Allows access to state via `getState()`
+- Allows state to be updated via `dispatch(action)`
+- Register listener via `subscribe(listener)`
+- Handles unregistering of listeners via the function returned by `subscribe(listener)`
+
