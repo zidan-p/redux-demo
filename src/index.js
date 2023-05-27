@@ -3,7 +3,7 @@ const redux = require("redux");
 
 const createStore = redux.createStore; 
 const bindActionCreators = redux.bindActionCreators; // # bind action creators
-
+const comnbineReducers = redux.combineReducers; // # here to combine reducer
 
 // # all action name
 const CAKE_ORDERED = "CAKE_ORDERED"; 
@@ -29,13 +29,17 @@ const restockIcecream = (qty = 1) => ({
     payload : qty
 })
 
-const initialState = {
-    numOfCakes: 10,
-    numOfIcecream: 10
-}
+// const initialState = {
+//     numOfCakes: 10,
+//     numOfIcecream: 10
+// }
+
+// # split it all
+const initialCakeState = {numOfCakes : 10}
+const initialIcecreamState = {numOfIcecream : 10}
 
 
-const reducer = (state = initialState, action) => {
+const cakeReducer = (state = initialCakeState, action) => {
     switch(action.type){
         case CAKE_ORDERED :
             return {
@@ -47,6 +51,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 numOfCakes : state.numOfCakes + action.payload
             }
+        default:
+            return state;
+    }
+}
+
+const icecreamReducer = (state = initialIcecreamState, action) => {
+    switch(action.type){
         case ICECREAM_ORDERED :
             return {
                 ...state,
@@ -62,8 +73,14 @@ const reducer = (state = initialState, action) => {
     }
 }
 
+// # combined reducer
+const rootReducer = comnbineReducers({
+    cake: cakeReducer,
+    icecream: icecreamReducer
+})
+
 // create store
-const store = createStore(reducer)
+const store = createStore(rootReducer)
 console.log("initial state", store.getState()); // log when state first initialized
 
 
