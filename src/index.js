@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
         case CAKE_ORDERED :
             return {
                 ...state,
-                numOfCake: state.numOfCakes - 1
+                numOfCakes: state.numOfCakes - 1
             }
         default:
             return state;
@@ -46,13 +46,24 @@ const reducer = (state = initialState, action) => {
 // now to make store, we use reducer that alreadt create to define store
 // because in there stored initial value.
 const store = createStore(reducer)
-console.log("initial state", store.getState()); // you can get all or some state with this
+console.log("initial state", store.getState()); // log when state first initialized
 
-store.subscribe(()=>console.log("update state",store.getState())) //i dunno how it wirk clearly. but maybe be it will called when 
+//i dunno how it work clearly. but maybe be it will called when state change
+const unsubscribe =  store.subscribe(()=>console.log("update state ",store.getState())) 
+// NOTE : subscribe return function than unsubscribe action
 
-store.dipatch(orderCake())
-store.dipatch(orderCake())
-store.dipatch(orderCake())
-store.dipatch(orderCake())
+store.dispatch(orderCake()) //{ numOfCakes: 9, anotherProperty: 1 }
+store.dispatch(orderCake()) //{ numOfCakes: 8, anotherProperty: 1 }
+store.dispatch(orderCake()) //{ numOfCakes: 7, anotherProperty: 1 }
+store.dispatch(orderCake()) //{ numOfCakes: 6, anotherProperty: 1 }
+// you can also directly insert object as argument.
+// however, it's better to use action creator to do this.
+// maybe in next time you want to change or edit some value or properties from here
+store.dispatch({
+    type: CAKE_ORDERED,
+    quantity : 1
+})
 
-
+unsubscribe();
+// when use dispatch after unsubscibe, it won't show any updated log value.
+// because all action to store is off from subscribe
