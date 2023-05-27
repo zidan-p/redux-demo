@@ -10,7 +10,8 @@ const createStore = redux.createStore;
 // abstraction of action in redux
 
 
-const CAKE_ORDERED = "CAKE_ORDERED"; // here the action
+const CAKE_ORDERED = "CAKE_ORDERED"; 
+const CAKE_RESTOCKED = "CAKE_RESTOCKED";
 
 function orderCake(){
     return {
@@ -19,9 +20,18 @@ function orderCake(){
     }
 }
 
+// ## restocking cake
+// every day, a vendor caame to the shop and restock the shelves
+// the vendor stock up one or more depens on previous day sales (altough it not true)
+function restockCake(qty = 1){
+    return {
+        type : CAKE_RESTOCKED,
+        quantity: qty
+    }
+}
+
 
 // How reducer structure may seem in redux
-
 // initial state
 const initialState = {
     numOfCakes: 10,
@@ -37,6 +47,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 numOfCakes: state.numOfCakes - 1
+            }
+        case CAKE_RESTOCKED :
+            return {
+                ...state,
+                numOfCakes : state.numOfCakes + action.quantity
             }
         default:
             return state;
@@ -63,6 +78,9 @@ store.dispatch({
     type: CAKE_ORDERED,
     quantity : 1
 })
+
+// # restocking
+store.dispatch(restockCake(5));
 
 unsubscribe();
 // when use dispatch after unsubscibe, it won't show any updated log value.
