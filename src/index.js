@@ -29,10 +29,6 @@ const restockIcecream = (qty = 1) => ({
     payload : qty
 })
 
-// const initialState = {
-//     numOfCakes: 10,
-//     numOfIcecream: 10
-// }
 
 // # split it all
 const initialCakeState = {numOfCakes : 10}
