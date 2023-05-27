@@ -8,21 +8,30 @@ const bindActionCreators = redux.bindActionCreators; // # bind action creators
 // # all action name
 const CAKE_ORDERED = "CAKE_ORDERED"; 
 const CAKE_RESTOCKED = "CAKE_RESTOCKED";
+const ICECREAM_ORDERED = "ICECREAM_ORDERED";
+const ICECREAM_RESTOCKED = "ICECREAM_RESTOCKED";
 
 // # action creator
-const orderCake = () => ({
-    type: CAKE_ORDERED,
-    payload : 1
+const orderCake = (qty = 1) => ({
+    type    : CAKE_ORDERED,
+    payload : qty
 })
 const restockCake = (qty = 1) => ({
-    type : CAKE_RESTOCKED,
-    payload: qty
+    type    : CAKE_RESTOCKED,
+    payload : qty
 })
-
+const orderIcecream = (qty = 1 ) => ({
+    type    : ICECREAM_ORDERED,
+    payload : qty
+})
+const restockIcecream = (qty = 1) => ({
+    type    : ICECREAM_RESTOCKED,
+    payload : qty
+})
 
 const initialState = {
     numOfCakes: 10,
-    anotherProperty: 1
+    numOfIcecream: 10
 }
 
 
@@ -31,12 +40,22 @@ const reducer = (state = initialState, action) => {
         case CAKE_ORDERED :
             return {
                 ...state,
-                numOfCakes: state.numOfCakes - 1
+                numOfCakes: state.numOfCakes - action.payload
             }
         case CAKE_RESTOCKED :
             return {
                 ...state,
-                numOfCakes : state.numOfCakes + action.quantity
+                numOfCakes : state.numOfCakes + action.payload
+            }
+        case ICECREAM_ORDERED :
+            return {
+                ...state,
+                numOfIcecream: state.numOfIcecream - action.payload
+            }
+        case ICECREAM_RESTOCKED :
+            return {
+                ...state,
+                numOfIcecream : state.numOfIcecream + action.payload
             }
         default:
             return state;
@@ -52,14 +71,21 @@ const unsubscribe =  store.subscribe(()=>console.log("update state ",store.getSt
 // NOTE : subscribe return function than unsubscribe action
 
 // # action
-const actions = bindActionCreators({orderCake, restockCake},store.dispatch);
-actions.orderCake()
-actions.orderCake()
-actions.orderCake()
-actions.orderCake()
-actions.orderCake()
+const actions = bindActionCreators({orderCake, restockCake, orderIcecream, restockIcecream},store.dispatch);
 
+// cakes
+actions.orderCake();
+actions.orderCake();
+actions.orderCake();
+actions.orderCake();
+actions.orderCake();
 actions.restockCake(5);
+
+// ice cream
+actions.orderIcecream();
+actions.orderIcecream();
+actions.orderIcecream();
+actions.restockIcecream(3);
 
 unsubscribe();
 // when use dispatch after unsubscibe, it won't show any updated log value.
