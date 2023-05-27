@@ -1,7 +1,7 @@
 
 
 
-three core concepts of container in redux
+## Three core concepts of container in redux
 
 
 | Cake Shop Scenarion       | Redux         | purpose               |
@@ -46,3 +46,19 @@ Responsibilities ->
 - Register listener via `subscribe(listener)`
 - Handles unregistering of listeners via the function returned by `subscribe(listener)`
 
+...
+
+...
+## Expanding Shop
+now, the owner of the shop want to expand the shop. the product that he sells are `cake` and `ice cream`.
+to acomplish that here the plan to do that
+
+| Product       | Storage         | Handler               |
+| ----------------------    | ------------  | --------------------- |
+| Cake Shop | Cakes stored on shelf         | Shopkeeper to handle `CAKE_ORDERED`
+| Sell ice creams | Ice Creams stored in the freezer | New Shopkeeper to handle `ICECREAM_ORDERED`
+
+here the difference
+ + state of the shop is now the number of cakes on the self along with number of icecream in the freezer
+ + separate shopkeepers help with scalability
+ + separate shopkeepers help narrow down on a problen when one does arise
