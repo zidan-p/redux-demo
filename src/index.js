@@ -16,7 +16,7 @@ const CAKE_RESTOCKED = "CAKE_RESTOCKED";
 function orderCake(){
     return {
         type: CAKE_ORDERED,
-        quantity : 1
+        payload : 1
     }
 }
 
@@ -26,7 +26,7 @@ function orderCake(){
 function restockCake(qty = 1){
     return {
         type : CAKE_RESTOCKED,
-        quantity: qty
+        payload: qty
     }
 }
 
