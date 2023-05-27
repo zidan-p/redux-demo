@@ -1,9 +1,26 @@
 const redux = require("redux");
+const reduxLogger = require("redux-logger");
 
+
+/**
+ * # Middleware
+ * the concept of middleware is easy to understand if yo already know about it in server.
+ * in redux middleware :
+ * 
+ * - is the sugested way to extend redux with custom functionality
+ * - provides a third-party extension point between dispatcing an action, and the moment it reaches 
+ *   the reducer
+ * - use middleware for logging, crash reporting, performing asynchronous task, ectc
+ * 
+ * this time i use redux logger to make logging every states change
+ */
 
 const createStore = redux.createStore; 
 const bindActionCreators = redux.bindActionCreators; // # bind action creators
 const comnbineReducers = redux.combineReducers; // # here to combine reducer
+const applyMiddleware = redux.applyMiddleware; // # apply middleware to redux
+
+const logger = reduxLogger.createLogger();
 
 // # all action name
 const CAKE_ORDERED = "CAKE_ORDERED"; 
@@ -75,12 +92,12 @@ const rootReducer = comnbineReducers({
     icecream: icecreamReducer
 })
 
-// create store
-const store = createStore(rootReducer)
+// # create store (also apply middleware)
+const store = createStore(rootReducer, applyMiddleware(logger));
 console.log("initial state", store.getState()); // log when state first initialized
 
 
-const unsubscribe =  store.subscribe(()=>console.log("update state ",store.getState())) 
+const unsubscribe =  store.subscribe(()=>{}) //logging is handle by middleware 
 // NOTE : subscribe return function than unsubscribe action
 
 // # action
