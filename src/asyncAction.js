@@ -1,5 +1,9 @@
 const redux = require("redux");
+const thunkMiddleware = require("redux-thunk").default;
+const axios = require("axios");
 
+
+const applyMiddleware = redux.applyMiddleware;
 const createStore = redux.createStore;
 
 
@@ -53,5 +57,31 @@ const reducer = (state = initialState, action) => {
             break;
     }
 }
+/**
+ * 
+ * i don't know why, but it seem besides object, store dispatch also accept callback.
+ * just follow the rule
+ * @returns cb
+ */
+const fetchUsers = () => {
+    return (dispatch) => {
+        dispatch(fetchUsersRequest());
+        axios
+            .get("https://jsonplaceholder.typicode.com/users")
+            .then(response => {
+                const users = response.data.map(user => user.name);
+                dispatch(fetchUsersSuccess(users))
+            })
+            .catch(error => {
+                dispatch(fetchUsersFailure(error.message))
+            })
+    }
+}
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+
+
+store.subscribe(()=>{
+    console.log(store.getState());
+});
+store.dispatch(fetchUsers());
