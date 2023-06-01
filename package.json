@@ -14,7 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-  },
-  "devDependencies": {
+    "@reduxjs/toolkit": "^1.9.5"
   }
 }
