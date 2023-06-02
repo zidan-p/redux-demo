@@ -16,16 +16,19 @@ const cakeSlice  = createSlice({
         // # state parameter is the current state that active in store
         // # its value can be change directly as if its mutable
         // # don't worry about the mutability of it value, it have been hanle by "immer library"
-        ordered : state => state.numOfCakes--,
+        ordered : state => {state.numOfCakes--},
 
         // # the action parameter are data that pass when dispatch function called.
         // # there are 2 default value that hold in the action: type and payload.
-        restocked : (state, action) => state.numOfCakes += action.payload
+        restocked : (state, action) => {state.numOfCakes += action.payload}
+
+        // # NOTE : immer will error when it return a value, i haven't know how it work.
+        // # next time remeber to use curly bracket 
     }
 })
 
 
 module.exports = cakeSlice.reducer;
-module.exports.cakeSlice = cakeSlice.actions; // named function
+module.exports.cakeActions = cakeSlice.actions; // named function
 
 
