@@ -16,7 +16,7 @@ const store = configureStore({
     },
 
     // # how to add middleware but still using the provided middlewares
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger) // turn off it for extrareducer example
 })
 
 module.exports = store;
