@@ -53,5 +53,5 @@ const icecreamSlice = createSlice({
 })
 
 
-module.exports = icecreamSlice.reducer;
-module.exports.icecreamActions = icecreamSlice.actions;
+export default icecreamSlice.reducer;
+export const {ordered, restocked} = icecreamSlice.actions;

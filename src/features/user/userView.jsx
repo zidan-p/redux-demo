@@ -9,9 +9,9 @@ export const UserView = () => {
                 <button className="px-3 bg-gray-200 rounded-sm hover:bg-gray-300 active:bg-gray-400">Fetch User</button>
             </div>
             <ul className="flex flex-col">
-                <li className="text-blue-900 list-disc list-inside">user 1</li>
-                <li className="text-blue-900 list-disc list-inside">user 1</li>
-                <li className="text-blue-900 list-disc list-inside">user 1</li>
+                <li className="text-gray-700 list-disc list-inside">user 1</li>
+                <li className="text-gray-700 list-disc list-inside">user 1</li>
+                <li className="text-gray-700 list-disc list-inside">user 1</li>
             </ul>
         </div>
     )
